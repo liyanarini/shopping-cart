@@ -25,11 +25,11 @@
 
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button class="btn btn-default"><i class="fas fa-minus"></i></button>
-                           <input type="text" class="form-control text-center" value="1">
-                           <button class="btn btn-default"><i class="fas fa-plus"></i></button>
+                           <button onclick="decreasePhoneQuantity()" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="phone-quantity" type="text" class="form-control text-center" value="1">
+                           <button onclick="increasePhoneQuantity()" class="btn btn-default"><i class="fas fa-plus"></i></button>
                         </div>
-                        <h5>$1219</h5>
+                        <h5 id="phone-price">$1219</h5>
                         <img src="images/remove.png" alt="" class="remove-item">
                      </div>
                   </div>
@@ -43,12 +43,12 @@
                      </div>
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button class="btn btn-default"><i class="fas fa-minus"></i></button>
-                           <input type="text" class="form-control text-center" value="1">
-                           <button class="btn btn-default"><i class="fas fa-plus"></i></button>
+                           <button onclick="decreaseCaseQuantity()" class="btn btn-default minusBtn"><i class="fas fa-minus"></i></button>
+                           <input id="case-quantity" type="text" class="form-control text-center" value="1">
+                           <button onclick="increaseCaseQuantity()" class="btn btn-default"><i class="fas fa-plus"></i></button>
 
                         </div>
-                        <h5>$59</h5>
+                        <h5 id="case-price">$59</h5>
                         <img src="images/remove.png" alt="" class="remove-item">
                      </div>
                   </div>
@@ -64,9 +64,9 @@
                      </div>
 
                      <div class="col-md-4 status">
-                        <h5>$1,278</h5>
-                        <h5>$0</h5>
-                        <h5>$1,278</h5>
+                        <h5 id="subtotal-price">$1278</h5>
+                        <h5 id="total-tax">$0</h5>
+                        <h5 id="total-price">$1,278</h5>
                      </div>
                   </div>
                </div>
@@ -77,6 +77,77 @@
          </div>
       </div>
    </section>
+   <script>
+      function decreasePhoneQuantity(){
+         const inputQuantity = document.getElementById("phone-quantity");
+         const inputQuantityNumber = inputQuantity.value;
+         const newInputQuantity = parseInt(inputQuantityNumber)-1 ;
+         inputQuantity.value=newInputQuantity;
+         updatePhonePrice();
+      }
+
+      function increasePhoneQuantity(){
+         const inputQuantity = document.getElementById("phone-quantity");
+         const inputQuantityNumber = inputQuantity.value;
+         const newInputQuantity = parseInt(inputQuantityNumber)+1 ;
+         inputQuantity.value=newInputQuantity;
+         updatePhonePrice();
+      }
+
+      function updatePhonePrice(){
+         const inputQuantity = document.getElementById("phone-quantity");
+         const inputQuantityNumber = inputQuantity.value;
+         const phonePrice = parseInt(inputQuantityNumber)*1219 ;
+         const inputPhonePrice = document.getElementById("phone-price");
+         inputPhonePrice.innerText = "$"+phonePrice;
+         updateTotalPrice ()
+      }
+
+      function decreaseCaseQuantity(){
+         const inputQuantity = document.getElementById("case-quantity");
+         const inputQuantityNumber = inputQuantity.value;
+         const newInputQuantity = parseInt(inputQuantityNumber)-1 ;
+         inputQuantity.value=newInputQuantity;
+      }
+
+      function increaseCaseQuantity(){
+         const inputQuantity = document.getElementById("case-quantity");
+         const inputQuantityNumber = inputQuantity.value;
+         const newInputQuantity = parseInt(inputQuantityNumber)+1 ;
+         inputQuantity.value=newInputQuantity;
+         updateCasePrice();
+      }
+
+      function updateCasePrice(){
+         const inputQuantity = document.getElementById("case-quantity");
+         const inputQuantityNumber = inputQuantity.value;
+         const phonePrice = parseInt(inputQuantityNumber)*59 ;
+         const inputPhonePrice = document.getElementById("case-price");
+         inputPhonePrice.innerText = "$"+phonePrice;
+         updateTotalPrice ();
+
+      }
+
+      function updateTotalPrice (){
+         const inputPhoneQuantity = document.getElementById("phone-quantity").value;
+         const inputCaseQuantity = document.getElementById("case-quantity").value;
+         const subTotalPrice =parseInt(inputPhoneQuantity)*1219 +parseInt (inputCaseQuantity)*59;
+         const subTotalPriceElement = document.getElementById("subtotal-price");
+         subTotalPriceElement.innerText = "$"+subTotalPrice;
+         
+         const taxAmount = subTotalPrice/100*16;
+         const taxElement = document.getElementById("total-tax");
+         taxElement.innerText = "$" + taxAmount;
+         
+         const totalPrice = subTotalPrice + parseFloat(taxAmount);
+         const totalPriceElement = document.getElementById("total-price");
+         totalPriceElement.innerText = "$" + totalPrice;
+
+      }
+
+      
+
+   </script>
 </body>
 
 </html>
